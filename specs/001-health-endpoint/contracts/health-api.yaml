@@ -1,0 +1,82 @@
+openapi: 3.1.0
+info:
+  title: Health Probe API
+  description: Kubernetes health probe endpoint for FastAPI application
+  version: 1.0.0
+  contact:
+    name: hello-spec-kit
+    
+servers:
+  - url: http://localhost:8000
+    description: Local development
+  - url: http://{pod-ip}:8000
+    description: Kubernetes pod
+    variables:
+      pod-ip:
+        default: "10.0.0.1"
+        description: Kubernetes pod IP address
+
+paths:
+  /health:
+    get:
+      summary: Health Check
+      description: |
+        Returns the health status of the application for Kubernetes readiness and liveness probes.
+        
+        This endpoint always returns 200 OK with a fixed JSON response when the application
+        is running and capable of handling requests. It does not check external dependencies.
+      operationId: getHealth
+      tags:
+        - Infrastructure
+      responses:
+        '200':
+          description: Application is healthy and ready to serve requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                healthy:
+                  summary: Healthy response
+                  value:
+                    status: "ok"
+        '405':
+          description: Method not allowed (only GET supported)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                methodNotAllowed:
+                  summary: Wrong HTTP method used
+                  value:
+                    detail: "Method Not Allowed"
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+          description: Health status indicator (always "ok" when endpoint responds)
+          example: "ok"
+      additionalProperties: false
+      
+    ErrorResponse:
+      type: object
+      required:
+        - detail
+      properties:
+        detail:
+          type: string
+          description: Error message
+          example: "Method Not Allowed"
+
+tags:
+  - name: Infrastructure
+    description: Infrastructure and operational endpoints
