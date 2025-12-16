@@ -20,10 +20,11 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
-- **Single project**: `src/`, `tests/` at repository root
+- **Single project**: `src/`, `tests/unit/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
 - Paths shown below assume single project - adjust based on plan.md structure
+- **Tests**: Per constitution, only unit tests (`tests/unit/`) - no integration or contract tests
 
 <!-- 
   ============================================================================
@@ -83,8 +84,8 @@ Examples of foundational tasks (adjust based on your project):
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T010 [P] [US1] Unit test for [function/method] in tests/unit/test_[name].py
+- [ ] T011 [P] [US1] Unit test for [endpoint] using FastAPI TestClient in tests/unit/test_[name].py
 
 ### Implementation for User Story 1
 
@@ -107,8 +108,8 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T018 [P] [US2] Unit test for [function/method] in tests/unit/test_[name].py
+- [ ] T019 [P] [US2] Unit test for [endpoint] using FastAPI TestClient in tests/unit/test_[name].py
 
 ### Implementation for User Story 2
 
@@ -129,8 +130,8 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T024 [P] [US3] Unit test for [function/method] in tests/unit/test_[name].py
+- [ ] T025 [P] [US3] Unit test for [endpoint] using FastAPI TestClient in tests/unit/test_[name].py
 
 ### Implementation for User Story 3
 

@@ -1,50 +1,117 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT (Generated: 2025-12-16)
+================================================
+Version Change: [TEMPLATE] → 1.0.0
+Change Type: MINOR (Initial constitution ratification)
+
+Modified Principles:
+- Added: I. Clean Code & Simplicity
+- Added: II. Minimal Dependencies
+
+Added Sections:
+- Technology Stack
+- Testing Requirements
+
+Removed Sections:
+- None (initial version)
+
+Templates Status:
+✅ plan-template.md - Constitution Check section aligns with principles
+✅ spec-template.md - Requirements sections support clean code validation
+✅ tasks-template.md - Task structure supports unit testing requirements
+⚠️ commands/*.md - No command files found to validate
+
+Follow-up TODOs:
+- None
+
+Rationale:
+Initial constitution establishing foundational principles for clean code,
+minimal dependencies, and unit testing discipline for a FastAPI microservice.
+================================================
+-->
+
+# hello-spec-kit Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Clean Code & Simplicity
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+All code MUST adhere to clean code principles with zero tolerance for technical debt:
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+- **Single Responsibility**: Each module, class, and function has ONE clear purpose
+- **Readable & Self-Documenting**: Code must be understandable without extensive comments; use descriptive names
+- **DRY (Don't Repeat Yourself)**: No code duplication; extract common logic into reusable functions
+- **Small Functions**: Functions should do one thing well; prefer multiple small functions over large ones
+- **YAGNI (You Aren't Gonna Need It)**: Implement only what is needed NOW, not what might be needed later
+- **Type Safety**: Use type hints throughout; all functions must have typed parameters and return values
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+**Rationale**: Clean code reduces cognitive load, accelerates onboarding, minimizes bugs, and makes refactoring safe. In a minimal FastAPI service, every line of code should justify its existence. Complexity is a liability that must be actively fought.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### II. Minimal Dependencies
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+The project MUST maintain the smallest possible dependency footprint:
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- **Core Dependencies Only**: FastAPI, Uvicorn, and UV are the ONLY production dependencies
+- **No External Services**: No databases, message queues, caches, or external APIs in unit tests
+- **No Testing Frameworks Beyond Standard Library**: Use Python's built-in `unittest` or `pytest` if absolutely necessary; no test fixtures requiring external dependencies
+- **Dependency Justification**: Any new dependency requires explicit architectural decision record (ADR) documenting why the standard library or existing dependencies are insufficient
+- **Version Pinning**: All dependencies must specify exact versions (no `>=` ranges in production)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**Rationale**: Each dependency is a potential security vulnerability, maintenance burden, and source of breaking changes. A minimal dependency tree ensures faster builds, easier audits, predictable behavior, and reduced attack surface. For a simple HTTP service, the standard library + FastAPI provides everything needed.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Technology Stack
+
+**Language**: Python ≥ 3.10  
+**HTTP Framework**: FastAPI 0.115.11 (exact version)  
+**ASGI Server**: Uvicorn ≥ 0.34.0  
+**Package Manager**: UV ≥ 0.5.1  
+**Container Runtime**: Docker with docker-compose  
+**Deployment**: Uvicorn running inside Docker container, exposed on port 8000
+
+All code runs in a containerized environment. Local development MUST match production container configuration.
+
+## Testing Requirements
+
+**Unit Tests Only**: This project requires ONLY unit tests with NO external dependencies:
+
+- **No Integration Tests**: No tests that require databases, external services, or network calls
+- **No Test Databases**: No PostgreSQL, SQLite, or any persistent storage in tests
+- **No Mocking External Services**: If you need to mock it, you shouldn't be testing it in unit tests
+- **Pure Logic Testing**: Tests validate business logic, data transformations, and request/response handling using in-memory data structures only
+- **Fast Execution**: Entire test suite must complete in under 5 seconds
+- **100% Standard Library**: Tests use only Python standard library or FastAPI's built-in test client (`TestClient`)
+
+**Test Structure**:
+```
+tests/
+└── unit/           # Pure unit tests, no external dependencies
+    ├── test_models.py
+    ├── test_services.py
+    └── test_endpoints.py
+```
+
+**Rationale**: Unit tests with zero external dependencies ensure tests are fast, reliable, and can run anywhere without setup. Complex integration testing is unnecessary for a minimal HTTP service where business logic is isolated and side-effect-free.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices and coding standards.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Amendment Process**:
+1. Proposed changes must be documented with rationale and impact analysis
+2. All existing code must be reviewed for compliance impact
+3. Migration plan required for breaking changes
+4. Templates in `.specify/templates/` must be updated to reflect changes
+5. Version must be bumped according to semantic versioning rules
+
+**Compliance**:
+- All pull requests MUST verify adherence to these principles
+- Code reviews MUST reject violations with reference to specific principle
+- Any deviation requires explicit justification in code comments and PR description
+- Automated linting and type checking enforces code quality standards
+
+**Versioning Policy**:
+- **MAJOR**: Principle removal, redefinition, or backward-incompatible governance change
+- **MINOR**: New principle added or existing principle materially expanded
+- **PATCH**: Clarifications, typo fixes, non-semantic refinements
+
+**Version**: 1.0.0 | **Ratified**: 2025-12-16 | **Last Amended**: 2025-12-16

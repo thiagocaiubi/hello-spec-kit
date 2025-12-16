@@ -64,9 +64,7 @@ src/
 └── lib/
 
 tests/
-├── contract/
-├── integration/
-└── unit/
+└── unit/          # Only unit tests (per constitution)
 
 # [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
 backend/
