@@ -29,9 +29,9 @@ description: "Task list for health endpoint implementation"
 
 **Purpose**: Project initialization for testing infrastructure
 
-- [ ] T001 Create tests directory structure: `tests/unit/`
-- [ ] T002 Create `tests/__init__.py` (empty file for Python package)
-- [ ] T003 Create `tests/unit/__init__.py` (empty file for Python package)
+- [X] T001 Create tests directory structure: `tests/unit/`
+- [X] T002 Create `tests/__init__.py` (empty file for Python package)
+- [X] T003 Create `tests/unit/__init__.py` (empty file for Python package)
 
 **Checkpoint**: Testing infrastructure ready
 
@@ -55,28 +55,28 @@ description: "Task list for health endpoint implementation"
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation (TDD)**
 
-- [ ] T004 [US1] Create test file `tests/unit/test_health.py` with imports and TestClient setup
-- [ ] T005 [US1] Write test `test_health_endpoint_returns_200()` - verify status code 200
-- [ ] T006 [US1] Write test `test_health_endpoint_returns_correct_json()` - verify `{"status": "ok"}` payload
-- [ ] T007 [US1] Write test `test_health_endpoint_has_json_content_type()` - verify `Content-Type: application/json`
-- [ ] T008 [US1] Write test `test_health_endpoint_ignores_query_params()` - verify `/health?foo=bar` still returns 200
-- [ ] T009 [US1] Write test `test_health_endpoint_rejects_post_method()` - verify POST returns 405
-- [ ] T010 [US1] Run tests and verify they FAIL (endpoint doesn't exist yet)
+- [X] T004 [US1] Create test file `tests/unit/test_health.py` with imports and TestClient setup
+- [X] T005 [US1] Write test `test_health_endpoint_returns_200()` - verify status code 200
+- [X] T006 [US1] Write test `test_health_endpoint_returns_correct_json()` - verify `{"status": "ok"}` payload
+- [X] T007 [US1] Write test `test_health_endpoint_has_json_content_type()` - verify `Content-Type: application/json`
+- [X] T008 [US1] Write test `test_health_endpoint_ignores_query_params()` - verify `/health?foo=bar` still returns 200
+- [X] T009 [US1] Write test `test_health_endpoint_rejects_post_method()` - verify POST returns 405
+- [X] T010 [US1] Run tests and verify they FAIL (endpoint doesn't exist yet)
 
 ### Implementation for User Story 1
 
-- [ ] T011 [US1] Add health endpoint route in `main.py`: `@app.get("/health")` decorator
-- [ ] T012 [US1] Implement health function with type hints: `def health() -> dict[str, str]:`
-- [ ] T013 [US1] Add return statement: `return {"status": "ok"}`
-- [ ] T014 [US1] Run tests and verify they PASS (all 5 tests should pass)
+- [X] T011 [US1] Add health endpoint route in `main.py`: `@app.get("/health")` decorator
+- [X] T012 [US1] Implement health function with type hints: `def health() -> dict[str, str]:`
+- [X] T013 [US1] Add return statement: `return {"status": "ok"}`
+- [X] T014 [US1] Run tests and verify they PASS (all 5 tests should pass)
 
 ### Validation for User Story 1
 
-- [ ] T015 [US1] Manual test: Start server with `uvicorn main:app --reload`
-- [ ] T016 [US1] Manual test: `curl http://localhost:8000/health` - verify output
-- [ ] T017 [US1] Manual test: `curl -X POST http://localhost:8000/health` - verify 405 response
-- [ ] T018 [US1] Performance test: Measure response time with `curl -w "\nTime: %{time_total}s\n"` - verify <100ms
-- [ ] T019 [US1] Run full test suite: `python -m pytest tests/unit/` - verify all pass and complete in <5s
+- [X] T015 [US1] Manual test: Start server with `uvicorn main:app --reload`
+- [X] T016 [US1] Manual test: `curl http://localhost:8000/health` - verify output
+- [X] T017 [US1] Manual test: `curl -X POST http://localhost:8000/health` - verify 405 response
+- [X] T018 [US1] Performance test: Measure response time with `curl -w "\nTime: %{time_total}s\n"` - verify <100ms
+- [X] T019 [US1] Run full test suite: `python -m pytest tests/unit/` - verify all pass and complete in <5s
 
 **Checkpoint**: User Story 1 complete - health endpoint fully functional and tested
 
@@ -86,11 +86,11 @@ description: "Task list for health endpoint implementation"
 
 **Purpose**: Documentation and final validation
 
-- [ ] T020 Add docstring to health function explaining purpose for Kubernetes probes
-- [ ] T021 Verify FastAPI auto-generated docs include /health endpoint at `http://localhost:8000/docs`
-- [ ] T022 Run type checker: `mypy main.py` (if mypy available) or verify type hints are correct
-- [ ] T023 Run quickstart.md validation procedures
-- [ ] T024 Update main.py with any missing type hints or documentation
+- [X] T020 Add docstring to health function explaining purpose for Kubernetes probes
+- [X] T021 Verify FastAPI auto-generated docs include /health endpoint at `http://localhost:8000/docs`
+- [X] T022 Run type checker: `mypy main.py` (if mypy available) or verify type hints are correct
+- [X] T023 Run quickstart.md validation procedures
+- [X] T024 Update main.py with any missing type hints or documentation
 
 ---
 
