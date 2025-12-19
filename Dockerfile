@@ -4,14 +4,17 @@ FROM python:3.13-slim
 # Set working directory
 WORKDIR /app
 
-# Copy requirements and install dependencies
+# Install uv for dependency management
 RUN pip install uv
 
-# Copy app files
-COPY . .
+# Copy only pyproject.toml first for better caching
+COPY pyproject.toml .
 
-# Install FastAPI and other dependencies
-RUN uv sync
+# Install dependencies from pyproject.toml
+RUN uv pip install --system -e .
+
+# Copy the rest of the application
+COPY . .
 
 # Expose FastAPI default port
 EXPOSE 8000
