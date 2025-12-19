@@ -20,8 +20,8 @@
 
 **Purpose**: Create directory structure for Pydantic models
 
-- [ ] T001 Create models directory structure at repository root: `models/__init__.py`
-- [ ] T002 Create schemas module file: `models/schemas.py` (empty file, will be populated in user story phases)
+- [X] T001 Create models directory structure at repository root: `models/__init__.py`
+- [X] T002 Create schemas module file: `models/schemas.py` (empty file, will be populated in user story phases)
 
 **Checkpoint**: Directory structure ready for model implementation
 
@@ -54,28 +54,28 @@
 
 ### Tests for User Story 2 (TDD: Write First, Watch Fail)
 
-- [ ] T003 [P] [US2] Create test file `tests/unit/test_health_validation.py` with test for HealthResponse model instantiation
-- [ ] T004 [P] [US2] Add test in `tests/unit/test_health_validation.py` for strict mode (extra fields rejected)
-- [ ] T005 [P] [US2] Add test in `tests/unit/test_health_validation.py` for health endpoint response validation
-- [ ] T006 [P] [US2] Add test in `tests/unit/test_health.py` for OpenAPI schema presence (check response_model)
+- [X] T003 [P] [US2] Create test file `tests/unit/test_health_validation.py` with test for HealthResponse model instantiation
+- [X] T004 [P] [US2] Add test in `tests/unit/test_health_validation.py` for strict mode (extra fields rejected)
+- [X] T005 [P] [US2] Add test in `tests/unit/test_health_validation.py` for health endpoint response validation
+- [X] T006 [P] [US2] Add test in `tests/unit/test_health.py` for OpenAPI schema presence (check response_model)
 
 **⚠️ RUN TESTS**: Execute `make test` - all new tests should FAIL (models not implemented yet)
 
 ### Implementation for User Story 2
 
-- [ ] T007 [US2] Implement HealthResponse model in `models/schemas.py` with ConfigDict(extra='forbid')
-- [ ] T008 [US2] Update health endpoint in `main.py` to use response_model=HealthResponse
-- [ ] T009 [US2] Add import statement in `main.py`: `from models.schemas import HealthResponse`
-- [ ] T010 [US2] Update `models/__init__.py` to export HealthResponse for easy imports
+- [X] T007 [US2] Implement HealthResponse model in `models/schemas.py` with ConfigDict(extra='forbid')
+- [X] T008 [US2] Update health endpoint in `main.py` to use response_model=HealthResponse
+- [X] T009 [US2] Add import statement in `main.py`: `from models.schemas import HealthResponse`
+- [X] T010 [US2] Update `models/__init__.py` to export HealthResponse for easy imports
 
 **⚠️ RUN TESTS**: Execute `make test` - all tests should now PASS
 
 ### Verification for User Story 2
 
-- [ ] T011 [US2] Run `make dev` and verify `/docs` shows HealthResponse schema in Swagger UI
-- [ ] T012 [US2] Run `curl http://localhost:8000/health?unknown=value` and verify HTTP 422 response
-- [ ] T013 [US2] Run `make type-check` and verify mypy passes with no errors
-- [ ] T014 [US2] Run `make test` and verify all tests pass in <5s
+- [X] T011 [US2] Run `make dev` and verify `/docs` shows HealthResponse schema in Swagger UI
+- [X] T012 [US2] Run `curl http://localhost:8000/health?unknown=value` and verify HTTP 422 response
+- [X] T013 [US2] Run `make type-check` and verify mypy passes with no errors
+- [X] T014 [US2] Run `make test` and verify all tests pass in <5s
 
 **Checkpoint**: Health endpoint now uses Pydantic validation with strict mode. OpenAPI docs auto-generated. Tests pass.
 
@@ -96,31 +96,31 @@
 
 ### Tests for User Story 1 (TDD: Write First, Watch Fail)
 
-- [ ] T015 [P] [US1] Create test file `tests/unit/test_pydantic_validation.py` for general validation tests
-- [ ] T016 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for valid request data acceptance
-- [ ] T017 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for invalid type rejection (wrong field types)
-- [ ] T018 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for missing required fields
-- [ ] T019 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for type coercion (string to int, int to string)
-- [ ] T020 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for extra fields rejection in strict mode
-- [ ] T021 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for nested validation errors with field paths
-- [ ] T022 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for multiple simultaneous validation errors
+- [X] T015 [P] [US1] Create test file `tests/unit/test_pydantic_validation.py` for general validation tests
+- [X] T016 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for valid request data acceptance
+- [X] T017 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for invalid type rejection (wrong field types)
+- [X] T018 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for missing required fields
+- [X] T019 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for type coercion (string to int, int to string)
+- [X] T020 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for extra fields rejection in strict mode
+- [X] T021 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for nested validation errors with field paths
+- [X] T022 [P] [US1] Add test in `tests/unit/test_pydantic_validation.py` for multiple simultaneous validation errors
 
 **⚠️ RUN TESTS**: Execute `make test` - new tests should FAIL (test data structures not created yet)
 
 ### Implementation for User Story 1
 
-- [ ] T023 [US1] Create example request/response models in `models/schemas.py` for testing validation patterns
-- [ ] T024 [US1] Document validation error structure in docstrings of `models/schemas.py`
-- [ ] T025 [US1] Add type hints to all model fields in `models/schemas.py` for IDE support
-- [ ] T026 [US1] Verify all models use ConfigDict(extra='forbid') for strict validation
+- [X] T023 [US1] Create example request/response models in `models/schemas.py` for testing validation patterns
+- [X] T024 [US1] Document validation error structure in docstrings of `models/schemas.py`
+- [X] T025 [US1] Add type hints to all model fields in `models/schemas.py` for IDE support
+- [X] T026 [US1] Verify all models use ConfigDict(extra='forbid') for strict validation
 
 **⚠️ RUN TESTS**: Execute `make test` - all tests should now PASS
 
 ### Documentation for User Story 1
 
-- [ ] T027 [P] [US1] Add docstring to HealthResponse model explaining validation behavior
-- [ ] T028 [P] [US1] Add inline comments in `models/schemas.py` showing type coercion examples
-- [ ] T029 [P] [US1] Update `models/__init__.py` docstring to document strict validation mode
+- [X] T027 [P] [US1] Add docstring to HealthResponse model explaining validation behavior
+- [X] T028 [P] [US1] Add inline comments in `models/schemas.py` showing type coercion examples
+- [X] T029 [P] [US1] Update `models/__init__.py` docstring to document strict validation mode
 
 **Checkpoint**: Comprehensive validation tests pass. All validation patterns documented. Error messages verified.
 
@@ -140,26 +140,26 @@
 
 ### Tests for User Story 3 (Type Checking Validation)
 
-- [ ] T030 [P] [US3] Add mypy configuration to `pyproject.toml` if not present (strict mode enabled)
-- [ ] T031 [P] [US3] Create test script `tests/unit/test_type_checking.py` that intentionally has type errors (commented out)
-- [ ] T032 [P] [US3] Add test in `tests/unit/test_type_checking.py` for correct type hints on HealthResponse
-- [ ] T033 [P] [US3] Add test in `tests/unit/test_type_checking.py` for model instantiation with correct types
+- [X] T030 [P] [US3] Add mypy configuration to `pyproject.toml` if not present (strict mode enabled)
+- [X] T031 [P] [US3] Create test script `tests/unit/test_type_checking.py` that intentionally has type errors (commented out)
+- [X] T032 [P] [US3] Add test in `tests/unit/test_type_checking.py` for correct type hints on HealthResponse
+- [X] T033 [P] [US3] Add test in `tests/unit/test_type_checking.py` for model instantiation with correct types
 
 **⚠️ RUN TESTS**: Execute `make type-check` - should pass for main code, fail for commented type-error examples
 
 ### Implementation for User Story 3
 
-- [ ] T034 [US3] Review all Pydantic models in `models/schemas.py` have complete type annotations
-- [ ] T035 [US3] Add type hints to endpoint functions in `main.py` (return type annotations)
-- [ ] T036 [US3] Verify imports in `models/__init__.py` maintain type information
-- [ ] T037 [US3] Add `py.typed` marker file to `models/` directory for PEP 561 compliance
+- [X] T034 [US3] Review all Pydantic models in `models/schemas.py` have complete type annotations
+- [X] T035 [US3] Add type hints to endpoint functions in `main.py` (return type annotations)
+- [X] T036 [US3] Verify imports in `models/__init__.py` maintain type information
+- [X] T037 [US3] Add `py.typed` marker file to `models/` directory for PEP 561 compliance
 
 ### Verification for User Story 3
 
-- [ ] T038 [US3] Run `make type-check` and verify zero errors
-- [ ] T039 [US3] Open `main.py` in VS Code and verify HealthResponse fields show autocompletion
-- [ ] T040 [US3] Add intentional type error (e.g., `HealthResponse(status=123)`) and verify mypy catches it
-- [ ] T041 [US3] Remove intentional error and verify all checks pass
+- [X] T038 [US3] Run `make type-check` and verify zero errors
+- [X] T039 [US3] Open `main.py` in VS Code and verify HealthResponse fields show autocompletion
+- [X] T040 [US3] Add intentional type error (e.g., `HealthResponse(status=123)`) and verify mypy catches it
+- [X] T041 [US3] Remove intentional error and verify all checks pass
 
 **Checkpoint**: Type checking fully functional. IDE provides autocompletion. Developer experience improved.
 
@@ -169,15 +169,15 @@
 
 **Purpose**: Final validation, documentation updates, and quality checks
 
-- [ ] T042 [P] Update existing `tests/unit/test_health.py` to import from `models.schemas`
-- [ ] T043 [P] Run full test suite `make test` and verify all tests pass in <5s
-- [ ] T044 [P] Run `make lint` and verify zero linting errors
-- [ ] T045 [P] Run `make type-check` and verify mypy passes
-- [ ] T046 [P] Verify OpenAPI docs at `/docs` show all schemas correctly
-- [ ] T047 Update README.md (if exists) to mention Pydantic validation feature
-- [ ] T048 Run `make docker-build && make docker-up` and verify health endpoint works in container
-- [ ] T049 Verify response time <50ms for health endpoint (measure with `curl` and time command)
-- [ ] T050 Run final constitution check: zero new dependencies, unit tests only, clean code
+- [X] T042 [P] Update existing `tests/unit/test_health.py` to import from `models.schemas`
+- [X] T043 [P] Run full test suite `make test` and verify all tests pass in <5s
+- [X] T044 [P] Run `make lint` and verify zero linting errors
+- [X] T045 [P] Run `make type-check` and verify mypy passes
+- [X] T046 [P] Verify OpenAPI docs at `/docs` show all schemas correctly
+- [X] T047 Update README.md (if exists) to mention Pydantic validation feature
+- [X] T048 Run `make docker-build && make docker-up` and verify health endpoint works in container
+- [X] T049 Verify response time <50ms for health endpoint (measure with `curl` and time command)
+- [X] T050 Run final constitution check: zero new dependencies, unit tests only, clean code
 
 **Final Checkpoint**: All user stories complete, tested, and documented. Feature ready for merge.
 

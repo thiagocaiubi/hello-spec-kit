@@ -10,6 +10,29 @@ from main import app
 client = TestClient(app)
 
 
+def test_health_endpoint_has_response_model():
+    """Test that health endpoint uses Pydantic response_model in OpenAPI schema.
+    
+    Requirement: FR-006 - Health endpoint must use HealthResponse model
+    """
+    # Check OpenAPI schema includes HealthResponse model
+    response = client.get("/openapi.json")
+    assert response.status_code == 200
+    
+    openapi_schema = response.json()
+    health_path = openapi_schema["paths"]["/health"]["get"]
+    
+    # Verify response model is defined
+    assert "responses" in health_path
+    assert "200" in health_path["responses"]
+    assert "content" in health_path["responses"]["200"]
+    assert "application/json" in health_path["responses"]["200"]["content"]
+    
+    # Verify schema reference exists
+    schema_ref = health_path["responses"]["200"]["content"]["application/json"]["schema"]
+    assert "$ref" in schema_ref or "properties" in schema_ref
+
+
 def test_health_endpoint_returns_200():
     """Test that health endpoint returns HTTP 200 status code.
     

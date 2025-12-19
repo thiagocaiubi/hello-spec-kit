@@ -1,19 +1,21 @@
 from fastapi import FastAPI
 
+from models.schemas import HealthResponse
+
 app = FastAPI()
 
 
-@app.get("/health")
-def health() -> dict[str, str]:
+@app.get("/health", response_model=HealthResponse)
+def health() -> HealthResponse:
     """Health check endpoint for Kubernetes probes.
     
     Returns a simple status response to indicate the application is running
     and ready to handle requests. Used by Kubernetes readiness and liveness probes.
     
     Returns:
-        dict: JSON response with status "ok"
+        HealthResponse: Pydantic model with status "ok"
     """
-    return {"status": "ok"}
+    return HealthResponse(status="ok")
 
 
 @app.get("/")
