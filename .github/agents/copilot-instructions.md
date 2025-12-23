@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2025-12-16
 
 ## Active Technologies
+- Python ≥ 3.10 (Python 3.13 in current Dockerfile) + FastAPI 0.115.11 (includes Pydantic V2), Uvicorn ≥ 0.34.0 (002-pydantic-validation)
+- N/A (no persistent storage for validation feature) (002-pydantic-validation)
 
 - Python 3.13 (Dockerfile) / ≥3.10 (pyproject.toml)
 - FastAPI 0.115.11
@@ -54,6 +56,7 @@ docker-compose up --build
 4. **Type Safety**: Complete type hints throughout
 
 ## Recent Changes
+- 002-pydantic-validation: Added Python ≥ 3.10 (Python 3.13 in current Dockerfile) + FastAPI 0.115.11 (includes Pydantic V2), Uvicorn ≥ 0.34.0
 
 - 001-health-endpoint: Added `/health` endpoint for Kubernetes probes
   - Returns `{"status": "ok"}` with HTTP 200

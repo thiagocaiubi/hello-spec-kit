@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: Health Probe API with Pydantic Validation
+  description: Kubernetes health probe endpoint with Pydantic data validation
+  version: 2.0.0
+  contact:
+    name: hello-spec-kit
+    
+servers:
+  - url: http://localhost:8000
+    description: Local development
+  - url: http://{pod-ip}:8000
+    description: Kubernetes pod
+    variables:
+      pod-ip:
+        default: "10.0.0.1"
+        description: Kubernetes pod IP address
+
+paths:
+  /health:
+    get:
+      summary: Health Check
+      description: |
+        Returns the health status of the application for Kubernetes readiness and liveness probes.
+        
+        This endpoint uses Pydantic validation to ensure response schema consistency.
+        Response model automatically generates this OpenAPI schema.
+        
+        Strict validation mode enabled - extra fields in request will return HTTP 422.
+      operationId: getHealth
+      tags:
+        - Infrastructure
+      responses:
+        '200':
+          description: Application is healthy and ready to serve requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                healthy:
+                  summary: Healthy response
+                  value:
+                    status: "ok"
+        '405':
+          description: Method not allowed (only GET supported)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                methodNotAllowed:
+                  summary: Wrong HTTP method used
+                  value:
+                    detail: "Method Not Allowed"
+        '422':
+          description: Validation error (should not occur for GET without body)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+              examples:
+                validationError:
+                  summary: Pydantic validation error structure
+                  value:
+                    detail:
+                      - type: "extra_forbidden"
+                        loc: ["body", "unknown_field"]
+                        msg: "Extra inputs are not permitted"
+                        input: "some_value"
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+          description: Health status indicator (always "ok" when endpoint responds)
+          example: "ok"
+          title: Status
+      additionalProperties: false
+      title: HealthResponse
+      description: Pydantic model for health check response
+      
+    ErrorResponse:
+      type: object
+      required:
+        - detail
+      properties:
+        detail:
+          type: string
+          description: Error message
+          example: "Method Not Allowed"
+          
+    ValidationErrorResponse:
+      type: object
+      required:
+        - detail
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          description: List of validation errors
+          
+    ValidationError:
+      type: object
+      required:
+        - type
+        - loc
+        - msg
+        - input
+      properties:
+        type:
+          type: string
+          description: Error type identifier
+          example: "string_type"
+        loc:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: integer
+          description: Location path to the error
+          example: ["body", "field_name"]
+        msg:
+          type: string
+          description: Human-readable error message
+          example: "Input should be a valid string"
+        input:
+          description: The invalid input value
+          example: 123
+        url:
+          type: string
+          format: uri
+          description: Link to Pydantic error documentation
+          example: "https://errors.pydantic.dev/2/v/string_type"
+
+tags:
+  - name: Infrastructure
+    description: Infrastructure and operational endpoints
+
