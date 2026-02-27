@@ -28,6 +28,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.PAT_TOKEN }}
+          model: claude-sonnet-4-6-default
           track_progress: true
           prompt: |
             REPO: ${{ github.repository }}
